@@ -1,0 +1,52 @@
+= rad_cloth
+
+rad_cloth is pretty much a clone of Chris Wanstrath's acts_as_textiled.  I was having problems with its design of passing parameters so I switched it up a bit.
+
+== Installation
+
+You'll need to have RedCloth as a textile engine.
+
+Assuming you want to use this as a Rails plugin:
+
+  ./script/plugin install git://github.com/jmckible/rad_cloth.git
+  
+== Usage
+
+Let's say you've got a post model with a body:
+
+  class Post < ActiveRecord::Base
+    # attributes: body
+  end
+  
+You can treat this like a normal attribute when editing via a form:
+
+  <% form_for @post do |f| %>
+    <%= f.text_area :body %>
+    <%= submit_tag 'Save' %>
+  <% end %>
+  
+Now if you want to textile the attribute for display just add:
+
+  class Post < ActiveRecord::Base
+    textile :body
+  end
+  
+This will define two new methods: @body_html@ and @body_plain@
+
+If you want to output the body converted to html, just do:
+
+  <%= @post.body_html %>
+  
+Or if you're sending in an email and want to strip out all the textile markdown:
+
+  <%= @post.body_plain %>
+  
+And that's pretty much it.  Keep in mind you aren't just restricted to ActiveRecord attributes, it'll work on any method which outputs a string.
+
+== Author
+
+* rad_cloth was created by Jordan McKible http://jordan.mckible.com
+
+* Available on GitHub at http://github.com/jmckible/rad_cloth/tree/master
+
+* acts_as_textiled by Chris Wanstrath http://github.com/defunkt/acts_as_textiled/tree/master
