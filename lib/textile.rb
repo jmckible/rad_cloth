@@ -18,12 +18,12 @@ module Textile
   private
   def redcloth(source)
     return '' if source.nil?
-    RedCloth.new(source, [:hard_breaks, :filter_html]).to_html    
+    RedCloth.new(source, [:hard_breaks]).to_html    
   end
 
   def redcloth_no_hard_breaks(source)
     return '' if source.nil?
-    RedCloth.new(source, [:filter_html]).to_html    
+    RedCloth.new(source).to_html    
   end
   
   def strip_redcloth(source)
